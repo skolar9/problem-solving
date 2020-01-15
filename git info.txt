@@ -1,0 +1,13 @@
+process to create new git branch
+---------------------------------
+1.Create new branch in git on git hub website
+2.create the java application in eclipse
+3.go to the workspace path and do git init
+4.Then run the below commands
+git remote add origin https://github.com/skolar9/problem-solving.git
+git pull origin master
+git add .
+git commit -m "first commit"
+git push --set-upstream origin master
+
+git pull and git push will work normally
