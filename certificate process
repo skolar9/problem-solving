@@ -1,0 +1,44 @@
+self signed certificate
+-----------------------
+
+/usr/jdk/jdk1.7.0_25/bin/keytool  -genkeypair -keysize 2048 -alias sree -keyalg RSA -keystore keystore.jks -validity 732 -storepass 6dtuaLegs
+/usr/jdk/jdk1.7.0_25/bin/keytool -certreq -alias sree -file cert1.csr -keystore keystore.jks
+
+
+
+openssl genrsa -out rootCA.key 1024
+openssl req -new -key rootCA.key -out rootCA.csr
+openssl x509 -req -days 3650 -in rootCA.csr -signkey rootCA.key -out rootCA.crt
+openssl x509 -req -days 500 -in cert1.csr -CA rootCA.crt -CAkey rootCA.key -out cert1.crt -CAcreateserial
+
+
+/usr/jdk/jdk1.7.0_25/bin/keytool -import -v -trustcacerts -alias rootCA -file /scratch/backupcert/rootCA.crt -keystore cacerts.jks
+/usr/jdk/jdk1.7.0_25/bin/keytool -import -v -trustcacerts -alias rootCA -file /scratch/backupcert/rootCA.crt -keystore keystore.jks
+/usr/jdk/jdk1.7.0_25/bin/keytool -import -v -trustcacerts -alias sree -file /scratch/backupcert/cert1.crt -keystore keystore.jks
+
+
+
+
+CA certificate
+--------------
+
+/usr/jdk/jdk1.7.0_25/bin/keytool -genkeypair -keysize 2048 -alias iwcservcert -keyalg RSA -dname "CN=ucs.ucsdemo.com,O=Oracle Inc,L=Bangalore,ST=Karnataka,C=IN" -keystore keystore.jks -validity 732 -storepass 6dtuaLegs
+/usr/jdk/jdk1.7.0_25/bin/keytool -certreq -alias iwcservcert -file ucs.ucsdemo.com.csr -keystore keystore.jks
+
+/usr/jdk/jdk1.7.0_25/bin/keytool -import -v -trustcacerts -alias digicert -file /export/home/ucsmgr/Cert/DigiCert-Nov2018/DigiCertGlobalRootCA.cer -keystore cacerts.jks
+/usr/jdk/jdk1.7.0_25/bin/keytool -import -v -trustcacerts -alias digicert -file /export/home/ucsmgr/Cert/DigiCert-Nov2018/DigiCertGlobalRootCA.cer -keystore keystore.jks
+
+/usr/jdk/jdk1.7.0_25/bin/keytool -import -v -trustcacerts -alias interdigioracle -file /export/home/ucsmgr/Cert/DigiCert-Nov2018/DigiCertSHA2SecureServerCA.cer.txt -keystore cacerts.jks
+/usr/jdk/jdk1.7.0_25/bin/keytool -import -v -trustcacerts -alias interdigioracle -file /export/home/ucsmgr/Cert/DigiCert-Nov2018/DigiCertSHA2SecureServerCA.cer.txt -keystore keystore.jks
+
+/usr/jdk/jdk1.7.0_25/bin/keytool -import -v -trustcacerts -alias iwcservcert -file /scratch/certificate/ucs.ucsdemo.com.crt -keystore keystore.jks
+
+
+
+========
+
+https://stackoverflow.com/questions/22203627/glassfish-3-and-import-signed-ssl-certificate-issue
+
+/usr/jdk/jdk1.7.0_25/bin/keytool -import -v -trustcacerts -alias ucsnew -file /export/home/ucsmgr/Cert/NewCert-Nov2018/ucs.ucsdemo.com.crt -keystore keystore.jks
+
+========
