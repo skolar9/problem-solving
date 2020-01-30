@@ -11,3 +11,6 @@ git commit -m "first commit"
 git push --set-upstream origin master
 
 git pull and git push will work normally
+
+git checkout -- README.md to revert the uncommited changes for file
+git reset --hard HEAD - to revert all local changes 
