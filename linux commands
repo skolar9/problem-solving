@@ -1,0 +1,23 @@
+commands in linux
+-----------------
+uname -a -->To find the machine details
+sudo su -> to check root access
+sudo find /usr/ -name *jdk
+sudo chmod -R 777 /home/sixven/camp_sms/inputs
+rm -rf dir -> delete the non empty dir
+rmdir-> to delete the directory
+export JAVA_HOME=/home/aqeel/development/jdk/jdk1.6.0_35
+export PATH=$JAVA_HOME/bin:$PATH
+scp skolar@sca00gdx.us.oracle.com:/Softwares/GF/answerfile /scratch/ -->copy the file we have to from my machine
+ls -ltr dir
+cp /net/sca00gdx.us.oracle.com/scratch/iwc_static_war_1.diff .   --> copy the file to current dir if the file is in scratch in other machine
+ cat /etc/os-release - to get the linux version
+cat > newfile
+vi filename esc :q!
+saving :w
+
+
+commands in windows
+-------------------
+netstat -ano | findstr :<yourPortNumber>
+taskkill /PID 1480 /F
