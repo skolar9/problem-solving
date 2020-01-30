@@ -1,0 +1,3 @@
+javac -classpath /scratch/opt/sun/comms/iwc/web-src/server/WEB-INF/lib/commons-logging-1.2.jar:/scratch/opt/sun/comms/iwc/web-src/server/WEB-INF/lib/iwc.jar:/scratch/Software/glassfish3/glassfish/lib/javaee.jar com/client/sample/CustomSSOProvider.java
+
+jar -cvf customsso.jar com/client/sample/CustomSSOProvider.class
