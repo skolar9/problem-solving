@@ -1,0 +1,258 @@
+		Predicate<Integer> g = a -> ((int)a==1)?true:false; 
+		System.out.println(g.test(12));
+		
+		
+		Function<Integer,Integer> fun = a -> a + 2;
+		System.out.println(fun.apply(3));
+		
+		Consumer<String> c = s -> System.out.println(s);
+		c.accept("hai");
+		
+		Supplier<Integer> c1 = () -> 2;
+		c1.get();
+
+		int1 o = (a)->a.split(" ").length >1 ?a.split(" ")[0]: null;
+		Function<String,Integer> f =(a)->a.length();
+		
+		Optional.ofNullable(o.method("asd")).ifPresent(System.out::println);
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.stream.Collectors;  
+import java.util.ArrayList;
+import java.util.stream.Stream;
+public class HelloWorld{
+
+     public static void main(String []args){
+     String arr[]={"srekank","vamc","somu"};
+      List<String> stream1 =Arrays.stream(arr).parallel();//.filter(a->a.startsWith("s")).map(s->s.toUpperCase()).collect(Collectors.toList());
+      stream1.forEach(System.out::println);
+     }
+}
+
+		List<Student> list = new ArrayList<Student>();
+		list.add(new Student(1, "Mahesh", 12));
+		list.add(new Student(2, "Suresh", 15));
+		list.add(new Student(3, "Nilesh", 10));
+		
+		System.out.println("---Natural Sorting by Name---");
+		List<Student> slist = list.stream().sorted().collect(Collectors.toList());
+		slist.forEach(e -> System.out.println("Id:"+ e.getId()+", Name: "+e.getName()+", Age:"+e.getAge()));
+		
+		System.out.println("---Natural Sorting by Name in reverse order---");
+		slist = list.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+		slist.forEach(e -> System.out.println("Id:"+ e.getId()+", Name: "+e.getName()+", Age:"+e.getAge()));		
+		
+		System.out.println("---Sorting using Comparator by Age---");
+		slist = list.stream().sorted(Comparator.comparing(Student::getAge)).collect(Collectors.toList());
+		slist.forEach(e -> System.out.println("Id:"+ e.getId()+", Name: "+e.getName()+", Age:"+e.getAge()));
+		
+		System.out.println("---Sorting using Comparator by Age with reverse order---");
+		slist = list.stream().sorted(Comparator.comparing(Student::getAge).reversed()).collect(Collectors.toList());
+		slist.forEach(e -> System.out.println("Id:"+ e.getId()+", Name: "+e.getName()+", Age:"+e.getAge()));
+	}
+	
+	
+	
+	
+	List<Integer> a=new ArrayList<Integer>();
+	a.add(1);
+	a.add(2);
+	a.add(3);
+	a.stream().reduce((s1,s2)->s1+s2).ifPresent(System.out::println);
+	
+	
+	
+down vote
+accepted
+If you want logical calendar days, use DAYS.between() method from java.time.temporal.ChronoUnit:
+
+LocalDate dateBefore;
+LocalDate dateAfter;
+long daysBetween = DAYS.between(dateBefore, dateAfter);
+If you want literal 24 hour days, (a duration), you can use the Duration class instead:
+LocalDate firstDay_2014 = LocalDate.of(2014, Month.JANUARY, 1);
+LocalDate today = LocalDate.now()
+LocalDate yesterday = today.minusDays(1);
+// Duration oneDay = Duration.between(today, yesterday); // throws an exception
+Duration.between(today.atStartOfDay(), yesterday.atStartOfDay()).toDays() 
+
+
+
+
+We have different byte code instructions of jvm .
+
+invokestatic ->>invokes the static method and stores the result on the stack.The methos is identified by method reference index in the constant pool.
+invokevirtual -->
+
+invoke dynamic
+
+lamda expressions are converted to invoke dynamic byte code instruction
+At run time, the invokedynamic instruction currently delegates to the LambdaMetafactory class which is included in the Java class library. This factory is then
+ responsible for creating a class 
+that implements the functional interface and which invokes the appropriate method that contains the lambda's body which, as described before, is stored in the original class. 
+
+1.invokedynamic
+2.LambdaMetafactory -->returns the object
+3.mthod handkers -->	  
+I understand that invokedynamic works with method handles to facilitate dynamic method invocation.
+
+      MethodHandles.Lookup lookup = MethodHandles.lookup();
+      MethodHandle mh = lookup.findVirtual(HW.class, "hello1",
+                                           MethodType.methodType(void.class));
+      mh.invoke(hw);
+      mh = lookup.findVirtual(HW.class, "hello2",
+                              MethodType.methodType(void.class));
+Streams are lazy because intermediate operations are not evaluated unless terminal operation is invoked.
+
+Each intermediate operation creates a new stream, stores the provided operation/function and return the new stream.
+
+The pipeline accumulates these newly created streams.
+
+The time when terminal operation is called, traversal of streams begins and the associated function is performed one by one.
+
+Parallel streams don't evaluate streams 'one by one' (at terminal point). The operations are rather performed simultaneously, depending on the available cores.
+
+
+
+Multithreading best practices
+-----------------------------
+1.ThreadPools --> reusing threads and boiler plate code removal
+2.Immutable classes ->string and wrapper classes
+3.Locks -> Less usage of locks. avoid nested locks.
+4.Synchronized blocks 
+Local variables
+It is a good practice to use local variables rather than using class or instance variables. You might wonder that creating a local variable every time for each method you write is a pain and you might think of reusing class level variables. However, reusability here would come at the cost of performance and concurrency problems. In using local variables more in your code, each thread that accesses the method would have their own copy of objects – this would reduce the concurrency issues that you would otherwise have to handle had those variables been shared or in a class scope.
+
+Avoid using static objects
+The static keyword in Java is used to create static method, class and objects. A static member in a class belongs to the class itself rather than the instances of the class. However, static objects create concurrency issues. Hence, it is advisable to avoid using static objects or static variables in your code unless they are absolutely needed. If you are using static variables, you can make them static final constants instead. Consider using read-only collections for thread safety.
+
+Streams
+-------
+Streams can be defined as a sequence of elements from a source that supports aggregate operations.
+The common aggregate operations are filter, map, reduce, find, match, sort. These operations can be executed in series or in parallel.
+
+Streams are lazy because intermediate operations are not evaluated unless terminal operation is invoked.
+
+Each intermediate operation creates a new stream, stores the provided operation/function and return the new stream.
+
+The pipeline accumulates these newly created streams.
+
+The time when terminal operation is called, traversal of streams begins and the associated function is performed one by one.
+
+Parallel streams don't evaluate streams 'one by one' (at terminal point). The operations are rather performed simultaneously, depending on the available cores.
+https://www.linkedin.com/pulse/java-8-streams-sequential-vs-parallel-saral-saxena
+
+
+
+
+The underlined data structure for ConcurrentHashMap is Hashtable.
+ConcurrentHashMap class is thread-safe i.e. multiple thread can operate on a single object without any complications.
+At a time any number of threads are applicable for read operation without locking the ConcurrentHashMap object which is not there in HashMap.
+In ConcurrentHashMap, the Object is divided into number of segments according to the concurrency level.
+Default concurrency-level of ConcurrentHashMap is 16.
+In ConcurrentHashMap, at a time any number of threads can perform retrieval operation but for updation in object, thread must lock the particular segment in which thread want
+ to operate.This type of locking mechanism is known as Segment locking or bucket locking.Hence at a time 16 updation operations can be performed by threads.
+null insertion is not possible in ConcurrentHashMap as key or value.
+
+
+
+
+import java.util.function.BiPredicate;
+/* w  w w.j a  v  a2 s. c o m*/
+public class Main {
+  public static void main(String[] args) {
+    BiPredicate<Integer, Integer> bi = (x, y) -> x > y;
+    System.out.println(bi.test(2, 3));
+  }
+}
+
+
+public class Main {
+  public static void main(String[] args) {
+    BiFunction<String, String,String> bi = (x, y) -> {      
+      return x + y;
+    };
+
+    System.out.println(bi.apply("java2s.com", " tutorial"));
+  }
+  
+}
+
+
+biconsumer hashmap foreach loop
+
+
+spliterator is used with stream using foreachremaining
+
+
+public static void main(String[] args) {
+	
+		Consumer<String> p=(i)->System.out.println(i);
+		p.accept("sfw");
+		
+		Predicate<Integer> p1=(i)->i > 0;
+		p1.test(10);
+		
+		Function<String,Integer> f=(p11)->p11.length();
+		f.apply("sre");
+		
+		Supplier <Integer> s=()->1;
+		s.get();
+		
+		
+		
+	}
+	
+	
+	
+	
+	Synchronized VS Lock
+	---------------------
+	With synchronized the locking / unlocking is tied to the block structure of your source code.
+ A synchronized lock will be released when you exit the block, no matter how you do this. For instance, 
+ it will be released if the block terminates due to an unexpected exception.
+
+With explicit locking this is not the case, so you could acquire a ReentrantLock (or any other Lock) in one method and release 
+it in another one. But the flip side is that you must remember to explicitly release the Lock at the appropriate time / place.
+ If you don't you'll end up with a stuck lock, and (maybe) deadlocks. In short, ReentrantLock is more complicated and potentially more error prone.
+
+
+A ReentrantLock can be created to be "fair", which means that threads that are waiting to acquire a given lock will acquire the lock in fifo order. Primitive locks are not fair.
+The ReentrantLock API has methods that can be used to test whether the lock is in use, find out the length of the lock queue, try to acquire the lock without blocking, 
+and various other things. None of this functionality is available for primitive locks.
+
+As the name says, ReentrantLock allow threads to enter into lock on a resource more than once. When the thread first enters into lock, a hold count is set to one.
+ Before unlocking the thread can re-enter into lock again and every time hold count is incremented by one. For every unlock request, 
+ hold count is decremented by one and when hold count is 0, the resource is unlocked.
+
+
+priority queue
+--------------
+elements are added in the queue in the natural order.
+Comparator is used for defining priority.
+
+A stream in Java is a pipeline of objects from an array or a collection data source. A sequential stream is one in which 
+the objects are pipelined in a single stream on the same processing system. Other types of stream include Parallel stream
+ in which the objects are pipelined on multi-processing system.
+
+List<String> names = new ArrayList<>();
+	names.add("Rams");
+	names.add("Posa");
+	names.add("Chinni");
+		
+	// Getting Spliterator
+	Spliterator<String> namesSpliterator = names.spliterator();
+		
+	// Traversing elements
+	namesSpliterator.forEachRemaining(System.out::println);	
+	
+	
+	Closures are nothing but stateful functions! A few definitions from the web include:
+
+A closure is a combination of a function bundled together (enclosed) with references to its surrounding state
+A closure gives you access to an outer function’s scope from an inner function
