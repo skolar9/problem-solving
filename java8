@@ -8,8 +8,10 @@
 		Consumer<String> c = s -> System.out.println(s);
 		c.accept("hai");
 		
-		Supplier<Integer> c1 = () -> 2;
-		c1.get();
+		Supplier<Double> randomValue = () -> Math.random(); 
+		  
+		// Print the random value using get() 
+		System.out.println(randomValue.get()); 
 
 		int1 o = (a)->a.split(" ").length >1 ?a.split(" ")[0]: null;
 		Function<String,Integer> f =(a)->a.length();
