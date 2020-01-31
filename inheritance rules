@@ -1,0 +1,5 @@
+For Compile time exceptions the method in super class should contains super Exception class and method in sub class contain sub exception 
+class.
+For only Runtime exception every thing is valid
+If the compile time exception is declared in super class only then no problem
+If the compile time exception is declared in sub class only then super class method should have exception of super class.
