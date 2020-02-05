@@ -21,3 +21,25 @@ commands in windows
 -------------------
 netstat -ano | findstr :<yourPortNumber>
 taskkill /PID 1480 /F
+
+scp skolar@sca00gdx.us.oracle.com:/Softwares/GF/answerfile /scratch/
+rsync --list-only comms-nfs.us.oracle.com::
+rsync -a --delete comms-nfs.us.oracle.com::tools_SunOS5.10_i386 /comms/tools
+vncserver --> tostart the vnc server
+$ isainfo -b
+sudo su -
+hostname -I | awk '{print $1}'
+gunzip -c jdk-8u212-solaris-sparcv9.tar.gz | tar xvf -
+netstat -ano | grep 510\
+Cisco IP telephone number: 918066050011.
+useradd -m -d /opt/uadmin uadmin
+usermod -g uadmin root  ->add root group to uadmin user
+usermod -a -G group1,group2,group3 exampleusername
+set JAVA_HOME="C:\Program Files\Java\jdk1.8.0_201"
+set path=C:\Program Files\Java\jdk1.8.0_201\bin;%path%
+vncserver -kill :1
+zip -r  varopt.zip ./varopt/*
+jar -xvf iwc_static.war
+bash-3.2# export PATH=$PATH:/usr/X/bin:/usr/X11/bin
+ssh -l skolar blr2222249.in.oracle.com
+ps -ef  |grep netbeans
