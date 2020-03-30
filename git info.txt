@@ -14,3 +14,7 @@ git pull and git push will work normally
 
 git checkout -- README.md to revert the uncommited changes for file
 git reset --hard HEAD - to revert all local changes 
+
+git tag 1.0
+git push origin --tags
+
